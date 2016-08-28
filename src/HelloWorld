@@ -1,0 +1,50 @@
+import java.util.Scanner;
+
+public class HelloWorld {
+
+    /**
+     * Переворот слова с использованием временной переменной размерности Char
+     * 
+     * @param str Строка для перевертывания, переданная по ссылке
+     * @param index1 Индекс первого символа
+     * @param index2  Индекс второго символа
+     */
+    private static void swap_withTmp(StringBuilder str, Integer index1, Integer index2) {
+        System.out.println("Swap: " + index1 + "(" + str.charAt(index1) + ") & " + index2 + "(" + str.charAt(index2) + ")");
+        Character tmpChar = str.charAt(index2); // Во временную переменную помещаем символ по инлексу второго символа
+        str.setCharAt(index2, str.charAt(index1)); // Меняем второй символ на первый
+        str.setCharAt(index1, tmpChar); // Устанавливаем по индексу первого символа, сохраненный второй символ
+    }
+
+    /**
+     * Переворот слова без использования временной переменной
+     *
+     * @param str Строка для перевертывания, переданная по ссылке
+     * @param index1 Индекс первого символа
+     * @param index2  Индекс второго символа
+     */
+    private static void swap_withoutTmp(StringBuilder str, Integer index1, Integer index2) {
+        System.out.println("Swap: " + index1 + "(" + str.charAt(index1) + ") & " + index2 + "(" + str.charAt(index2) + ")");
+        str.insert(index2.intValue() + 1, str.charAt(index1)); // Вставляем первый символ по индексу второго символа + 1
+        str.setCharAt(index1, str.charAt(index2)); // Устанавливаем вместо первого символва - второй
+        str.deleteCharAt(index2); // Удаляем второй символ по его индексу
+    }
+
+    public static void main(String[] argv) {
+        Scanner scan = new Scanner(System.in);
+        //StringBuilder someStr = new StringBuilder("Соловецкие острова это наш выбор!");
+        StringBuilder someStr = new StringBuilder(scan.nextLine());
+        Integer index = 0;
+        System.out.println("Фраза (слово) для перевертыша: " + someStr);
+        System.out.println("Всего символов во фразе (слове): " + someStr.length());
+
+        while (index < someStr.length() / 2) {
+            System.out.print(index + ": ");
+            //swap_withTmp(someStr, index, someStr.length() - index - 1);
+            swap_withoutTmp(someStr, index, someStr.length() - index - 1);
+            System.out.println(someStr);
+            ++index;
+        }
+        
+    }
+}
